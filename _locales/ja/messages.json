@@ -4,7 +4,7 @@
         "description": "Extension name"
     },
     "extensionDescription": {
-        "message": "Gmail効率化拡張機能 - 自然言語スヌーズ、送信取り消し延長、UI簡素化など",
+        "message": "Gmail効率化拡張機能 - カスタムタブでメール整理、ショートカットでアカウント切り替え",
         "description": "Extension description"
     },
     "snooze": {

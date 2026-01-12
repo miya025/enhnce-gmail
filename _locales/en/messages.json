@@ -4,7 +4,7 @@
         "description": "Extension name"
     },
     "extensionDescription": {
-        "message": "Gmail productivity extension - natural language snooze, extended undo send, UI simplification and more",
+        "message": "Gmail productivity extension - organize emails with custom tabs, switch accounts with shortcuts",
         "description": "Extension description"
     },
     "snooze": {
