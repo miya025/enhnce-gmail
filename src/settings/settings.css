@@ -1,0 +1,280 @@
+/**
+ * Enhance Gmail Settings Styles
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Google Sans', Roboto, sans-serif;
+    font-size: 14px;
+    color: #202124;
+    background: #f8f9fa;
+    line-height: 1.5;
+}
+
+.settings-container {
+    max-width: 720px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダー */
+.settings-header {
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white;
+    padding: 32px 40px;
+}
+
+.settings-header h1 {
+    font-size: 28px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+/* メインコンテンツ */
+.settings-main {
+    padding: 32px 40px;
+}
+
+/* セクション */
+.settings-section {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-section h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #4285f4;
+    display: inline-block;
+}
+
+/* 設定グループ */
+.setting-group {
+    margin-bottom: 24px;
+}
+
+.setting-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #202124;
+}
+
+.setting-group select,
+.setting-group input[type="text"],
+.setting-group input[type="time"] {
+    padding: 10px 14px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.setting-group select:focus,
+.setting-group input:focus {
+    border-color: #4285f4;
+}
+
+.setting-group input[type="checkbox"] {
+    width: 48px;
+    height: 24px;
+    appearance: none;
+    background: #dadce0;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.setting-group input[type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.setting-group input[type="checkbox"]:checked {
+    background: #4285f4;
+}
+
+.setting-group input[type="checkbox"]:checked::after {
+    left: 26px;
+}
+
+.setting-description {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #5f6368;
+}
+
+/* ボタン */
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #4285f4;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #3367d6;
+}
+
+.btn-secondary {
+    background: #f1f3f4;
+    color: #5f6368;
+    border: 1px solid #dadce0;
+}
+
+.btn-secondary:hover {
+    background: #e8eaed;
+}
+
+.btn-icon {
+    padding: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.btn-icon:hover {
+    background: #f1f3f4;
+}
+
+/* カスタムタブ */
+.custom-tabs-list {
+    margin-bottom: 16px;
+}
+
+.custom-tab-item {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.custom-tab-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.custom-tab-header .tab-name {
+    flex: 1;
+    max-width: none;
+}
+
+.custom-tab-header .tab-color {
+    width: 40px;
+    height: 40px;
+    padding: 4px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.custom-tab-rule label {
+    font-size: 13px;
+    color: #5f6368;
+    margin-bottom: 4px;
+}
+
+.custom-tab-rule input {
+    max-width: none !important;
+}
+
+/* フッター */
+.settings-footer {
+    background: #f8f9fa;
+    padding: 24px 40px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-info {
+    text-align: center;
+}
+
+.footer-info p {
+    color: #5f6368;
+    font-size: 13px;
+}
+
+.footer-info .links {
+    margin-top: 8px;
+}
+
+.footer-info .links a {
+    color: #4285f4;
+    text-decoration: none;
+}
+
+.footer-info .links a:hover {
+    text-decoration: underline;
+}
+
+.footer-info .links span {
+    margin: 0 8px;
+    color: #dadce0;
+}
+
+/* 保存通知 */
+.save-notification {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #34a853;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.save-notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

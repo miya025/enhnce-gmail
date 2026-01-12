@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhance Gmail</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-container">
+    <!-- ヘッダー -->
+    <header class="popup-header">
+      <div class="logo">
+        <span class="logo-icon">✉️</span>
+        <span class="logo-text">Enhance Gmail</span>
+      </div>
+      <span class="version">v1.0.0</span>
+    </header>
+
+    <!-- クイック設定 -->
+    <section class="quick-settings">
+      <h2>クイック設定</h2>
+
+      <div class="setting-row toggle-row">
+        <label for="shortcut-hints">ショートカット学習</label>
+        <input type="checkbox" id="shortcut-hints" checked>
+      </div>
+
+      <div class="setting-row toggle-row">
+        <label for="notifications">通知</label>
+        <input type="checkbox" id="notifications" checked>
+      </div>
+    </section>
+
+    <!-- ショートカット一覧 -->
+    <section class="shortcuts">
+      <h2>ショートカット</h2>
+      <div class="shortcut-list">
+
+        <div class="shortcut-item">
+          <kbd>Shift+1~9</kbd>
+          <span>アカウント切替</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="popup-footer">
+      <a href="#" id="open-settings">詳細設定</a>
+      <span class="divider">|</span>
+      <a href="https://zenmail.app/help" target="_blank">ヘルプ</a>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+
+</html>

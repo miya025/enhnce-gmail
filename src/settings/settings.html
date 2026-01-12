@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhance Gmail 設定</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+    <div class="settings-container">
+        <!-- ヘッダー -->
+        <header class="settings-header">
+            <h1>
+                <span class="logo-icon">✉️</span>
+                Enhance Gmail 設定
+            </h1>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main class="settings-main">
+            <!-- 一般設定 -->
+            <section class="settings-section">
+                <h2>一般設定</h2>
+
+                <div class="setting-group">
+                    <label for="language">言語</label>
+                    <select id="language">
+                        <option value="ja">日本語</option>
+                        <option value="en">English</option>
+                    </select>
+                    <p class="setting-description">インターフェースの言語を選択します</p>
+                </div>
+
+                <div class="setting-group">
+                    <label for="notifications">デスクトップ通知</label>
+                    <input type="checkbox" id="notifications" checked>
+                    <p class="setting-description">アクション完了時などに通知を表示します</p>
+                </div>
+            </section>
+
+            <!-- ショートカット学習設定 -->
+            <section class="settings-section">
+                <h2>ショートカット学習</h2>
+
+                <div class="setting-group">
+                    <label for="shortcut-hints">ヒントを表示</label>
+                    <input type="checkbox" id="shortcut-hints" checked>
+                    <p class="setting-description">マウス操作時にショートカットキーを提案します</p>
+                </div>
+
+                <div class="setting-group">
+                    <button id="reset-learning" class="btn btn-secondary">学習データをリセット</button>
+                    <p class="setting-description">ショートカット学習の進捗をリセットします</p>
+                </div>
+            </section>
+
+            <!-- カスタムタブ設定 -->
+            <section class="settings-section">
+                <h2>カスタムタブ</h2>
+
+                <div class="custom-tabs-list" id="custom-tabs-list">
+                    <!-- 動的に追加 -->
+                </div>
+
+                <button id="add-custom-tab" class="btn btn-primary">
+                    + 新しいタブを追加
+                </button>
+            </section>
+        </main>
+
+        <!-- フッター -->
+        <footer class="settings-footer">
+            <div class="footer-info">
+                <p>Enhance Gmail for Gmail v1.0.0</p>
+                <p class="links">
+                    <a href="https://zenmail.app/privacy" target="_blank">プライバシーポリシー</a>
+                    <span>|</span>
+                    <a href="https://zenmail.app/terms" target="_blank">利用規約</a>
+                    <span>|</span>
+                    <a href="mailto:support@zenmail.app">サポート</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="settings.js" type="module"></script>
+</body>
+
+</html>

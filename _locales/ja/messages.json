@@ -1,0 +1,138 @@
+{
+    "extensionName": {
+        "message": "Enhance Gmail",
+        "description": "Extension name"
+    },
+    "extensionDescription": {
+        "message": "Gmail効率化拡張機能 - 自然言語スヌーズ、送信取り消し延長、UI簡素化など",
+        "description": "Extension description"
+    },
+    "snooze": {
+        "message": "スヌーズ",
+        "description": "Snooze action"
+    },
+    "snoozeTitle": {
+        "message": "スヌーズ",
+        "description": "Snooze dialog title"
+    },
+    "snoozePlaceholder": {
+        "message": "例: 明日, 2時間後, 来週の月曜",
+        "description": "Snooze input placeholder"
+    },
+    "snoozeSuccess": {
+        "message": "$TIME$ にスヌーズしました",
+        "description": "Snooze success message",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "明日 9:00"
+            }
+        }
+    },
+    "snoozeDue": {
+        "message": "スヌーズしたメールが受信トレイに戻りました",
+        "description": "Snooze due notification"
+    },
+    "unsubscribe": {
+        "message": "配信停止",
+        "description": "Unsubscribe action"
+    },
+    "unsubscribeSuccess": {
+        "message": "配信停止ページを開きました",
+        "description": "Unsubscribe success message"
+    },
+    "unsubscribeNotFound": {
+        "message": "配信停止リンクが見つかりませんでした",
+        "description": "Unsubscribe link not found"
+    },
+    "sendCancelled": {
+        "message": "送信を取り消しました",
+        "description": "Send cancelled message"
+    },
+    "sendCancelledWithDraft": {
+        "message": "送信を取り消しました。下書きに保存されています。",
+        "description": "Send cancelled with draft saved"
+    },
+    "sendSuccess": {
+        "message": "メールを送信しました",
+        "description": "Send success message"
+    },
+    "sendCountdown": {
+        "message": "送信中... あと $SECONDS$秒",
+        "description": "Send countdown message",
+        "placeholders": {
+            "seconds": {
+                "content": "$1",
+                "example": "30"
+            }
+        }
+    },
+    "cancel": {
+        "message": "取り消し",
+        "description": "Cancel button"
+    },
+    "confirm": {
+        "message": "確認",
+        "description": "Confirm button"
+    },
+    "uiModeNormal": {
+        "message": "通常モード",
+        "description": "Normal UI mode"
+    },
+    "uiModeSimple": {
+        "message": "シンプルモード",
+        "description": "Simple UI mode"
+    },
+    "uiModeZen": {
+        "message": "禅モード",
+        "description": "Zen UI mode"
+    },
+    "accountSwitch": {
+        "message": "アカウント切り替え",
+        "description": "Account switch title"
+    },
+    "accountAlreadyActive": {
+        "message": "既にアカウント $NUMBER$ を使用中です",
+        "description": "Account already active message",
+        "placeholders": {
+            "number": {
+                "content": "$1",
+                "example": "1"
+            }
+        }
+    },
+    "shortcutHint": {
+        "message": "次回は $KEY$ キーで$ACTION$できます",
+        "description": "Shortcut hint message",
+        "placeholders": {
+            "key": {
+                "content": "$1",
+                "example": "E"
+            },
+            "action": {
+                "content": "$2",
+                "example": "アーカイブ"
+            }
+        }
+    },
+    "settings": {
+        "message": "設定",
+        "description": "Settings"
+    },
+    "quickSettings": {
+        "message": "クイック設定",
+        "description": "Quick settings"
+    },
+    "shortcuts": {
+        "message": "ショートカット",
+        "description": "Shortcuts"
+    },
+    "help": {
+        "message": "ヘルプ",
+        "description": "Help"
+    },
+    "openEmail": {
+        "message": "メールを開いてください",
+        "description": "Please open email first"
+    }
+}

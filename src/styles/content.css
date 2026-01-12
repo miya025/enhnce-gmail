@@ -1,0 +1,122 @@
+/**
+ * Enhance Gmail Content Styles
+ * Gmail画面に注入されるスタイル
+ */
+
+/* ==========================================
+   CSS Variables
+   ========================================== */
+:root {
+  --enhance-gmail-primary: #4285f4;
+  --enhance-gmail-primary-dark: #3367d6;
+  --enhance-gmail-success: #34a853;
+  --enhance-gmail-warning: #fbbc04;
+  --enhance-gmail-error: #ea4335;
+  --enhance-gmail-text: #202124;
+  --enhance-gmail-text-secondary: #5f6368;
+  --enhance-gmail-bg: #ffffff;
+  --enhance-gmail-bg-secondary: #f8f9fa;
+  --enhance-gmail-border: #dadce0;
+  --enhance-gmail-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --enhance-gmail-radius: 8px;
+  --enhance-gmail-transition: 0.2s ease;
+}
+
+/* ==========================================
+   トースト通知
+   ========================================== */
+.enhance-gmail-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--enhance-gmail-text);
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--enhance-gmail-radius);
+  font-size: 14px;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  z-index: 999999;
+  opacity: 0;
+  transition: transform var(--enhance-gmail-transition), opacity var(--enhance-gmail-transition);
+  box-shadow: var(--enhance-gmail-shadow);
+}
+
+.enhance-gmail-toast-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+
+
+
+
+/* ==========================================
+   アカウント一覧
+   ========================================== */
+.enhance-gmail-account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.enhance-gmail-account-item {
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--enhance-gmail-transition);
+}
+
+.enhance-gmail-account-item:hover {
+  background: var(--enhance-gmail-bg-secondary);
+}
+
+.enhance-gmail-account-item.current {
+  background: rgba(66, 133, 244, 0.1);
+  color: var(--enhance-gmail-primary);
+  font-weight: 500;
+}
+
+
+
+/* ==========================================
+   ショートカット学習ヒント
+   ========================================== */
+.enhance-gmail-shortcut-hint {
+  position: fixed;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  z-index: 999999;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.enhance-gmail-shortcut-hint .hint-icon {
+  font-size: 16px;
+}
+
+.enhance-gmail-shortcut-hint .hint-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.enhance-gmail-shortcut-hint kbd {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 0 2px;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  font-weight: 600;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

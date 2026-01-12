@@ -1,0 +1,138 @@
+{
+    "extensionName": {
+        "message": "Enhance Gmail",
+        "description": "Extension name"
+    },
+    "extensionDescription": {
+        "message": "Gmail productivity extension - natural language snooze, extended undo send, UI simplification and more",
+        "description": "Extension description"
+    },
+    "snooze": {
+        "message": "Snooze",
+        "description": "Snooze action"
+    },
+    "snoozeTitle": {
+        "message": "Snooze",
+        "description": "Snooze dialog title"
+    },
+    "snoozePlaceholder": {
+        "message": "e.g., tomorrow, in 2 hours, next monday",
+        "description": "Snooze input placeholder"
+    },
+    "snoozeSuccess": {
+        "message": "Snoozed until $TIME$",
+        "description": "Snooze success message",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "Tomorrow 9:00 AM"
+            }
+        }
+    },
+    "snoozeDue": {
+        "message": "Snoozed email returned to inbox",
+        "description": "Snooze due notification"
+    },
+    "unsubscribe": {
+        "message": "Unsubscribe",
+        "description": "Unsubscribe action"
+    },
+    "unsubscribeSuccess": {
+        "message": "Opened unsubscribe page",
+        "description": "Unsubscribe success message"
+    },
+    "unsubscribeNotFound": {
+        "message": "Unsubscribe link not found",
+        "description": "Unsubscribe link not found"
+    },
+    "sendCancelled": {
+        "message": "Send cancelled",
+        "description": "Send cancelled message"
+    },
+    "sendCancelledWithDraft": {
+        "message": "Send cancelled. Saved to drafts.",
+        "description": "Send cancelled with draft saved"
+    },
+    "sendSuccess": {
+        "message": "Email sent",
+        "description": "Send success message"
+    },
+    "sendCountdown": {
+        "message": "Sending... $SECONDS$ seconds left",
+        "description": "Send countdown message",
+        "placeholders": {
+            "seconds": {
+                "content": "$1",
+                "example": "30"
+            }
+        }
+    },
+    "cancel": {
+        "message": "Cancel",
+        "description": "Cancel button"
+    },
+    "confirm": {
+        "message": "Confirm",
+        "description": "Confirm button"
+    },
+    "uiModeNormal": {
+        "message": "Normal Mode",
+        "description": "Normal UI mode"
+    },
+    "uiModeSimple": {
+        "message": "Simple Mode",
+        "description": "Simple UI mode"
+    },
+    "uiModeZen": {
+        "message": "Zen Mode",
+        "description": "Zen UI mode"
+    },
+    "accountSwitch": {
+        "message": "Switch Account",
+        "description": "Account switch title"
+    },
+    "accountAlreadyActive": {
+        "message": "Account $NUMBER$ is already active",
+        "description": "Account already active message",
+        "placeholders": {
+            "number": {
+                "content": "$1",
+                "example": "1"
+            }
+        }
+    },
+    "shortcutHint": {
+        "message": "Tip: Use $KEY$ key to $ACTION$",
+        "description": "Shortcut hint message",
+        "placeholders": {
+            "key": {
+                "content": "$1",
+                "example": "E"
+            },
+            "action": {
+                "content": "$2",
+                "example": "archive"
+            }
+        }
+    },
+    "settings": {
+        "message": "Settings",
+        "description": "Settings"
+    },
+    "quickSettings": {
+        "message": "Quick Settings",
+        "description": "Quick settings"
+    },
+    "shortcuts": {
+        "message": "Shortcuts",
+        "description": "Shortcuts"
+    },
+    "help": {
+        "message": "Help",
+        "description": "Help"
+    },
+    "openEmail": {
+        "message": "Please open an email first",
+        "description": "Please open email first"
+    }
+}
