@@ -26,8 +26,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
                 showSendProgress: true,
                 defaultSnoozeTime: '09:00',
                 uiMode: 'normal',
-                showShortcutHints: true,
-                notifications: true,
                 language: 'ja'
             }
         });
@@ -125,21 +123,6 @@ async function checkSnoozedEmails() {
     if (dueSnoozed.length > 0) {
         console.log('Enhance Gmail: Found', dueSnoozed.length, 'snoozed emails due');
 
-        // 通知を表示
-        const settings = (await chrome.storage.sync.get('settings')).settings || {};
-
-        if (settings.notifications) {
-            for (const item of dueSnoozed) {
-                chrome.notifications.create({
-                    type: 'basic',
-                    iconUrl: 'icons/icon128.png',
-                    title: 'Enhance Gmail: スヌーズ終了',
-                    message: 'スヌーズしたメールが受信トレイに戻りました',
-                    priority: 2
-                });
-            }
-        }
-
         // Gmailタブにメッセージを送信
         const tabs = await chrome.tabs.query({ url: 'https://mail.google.com/*' });
         for (const tab of tabs) {
@@ -178,13 +161,7 @@ chrome.runtime.onStartup.addListener(async () => {
     // 未送信アイテムのチェック
     const queue = (await chrome.storage.local.get('sendQueue')).sendQueue || [];
     if (queue.length > 0) {
-        chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'icons/icon128.png',
-            title: 'Enhance Gmail: 未送信メールがあります',
-            message: `${queue.length}件の未送信メールがあります。Gmailを開いて確認してください。`,
-            priority: 2
-        });
+        console.log('Enhance Gmail: Found', queue.length, 'unsent emails');
     }
 });
 

@@ -33,41 +33,20 @@
                     <p class="setting-description">インターフェースの言語を選択します</p>
                 </div>
 
-                <div class="setting-group">
-                    <label for="notifications">デスクトップ通知</label>
-                    <input type="checkbox" id="notifications" checked>
-                    <p class="setting-description">アクション完了時などに通知を表示します</p>
-                </div>
-            </section>
 
-            <!-- ショートカット学習設定 -->
-            <section class="settings-section">
-                <h2>ショートカット学習</h2>
 
-                <div class="setting-group">
-                    <label for="shortcut-hints">ヒントを表示</label>
-                    <input type="checkbox" id="shortcut-hints" checked>
-                    <p class="setting-description">マウス操作時にショートカットキーを提案します</p>
-                </div>
+                <!-- カスタムタブ設定 -->
+                <section class="settings-section">
+                    <h2>カスタムタブ</h2>
 
-                <div class="setting-group">
-                    <button id="reset-learning" class="btn btn-secondary">学習データをリセット</button>
-                    <p class="setting-description">ショートカット学習の進捗をリセットします</p>
-                </div>
-            </section>
+                    <div class="custom-tabs-list" id="custom-tabs-list">
+                        <!-- 動的に追加 -->
+                    </div>
 
-            <!-- カスタムタブ設定 -->
-            <section class="settings-section">
-                <h2>カスタムタブ</h2>
-
-                <div class="custom-tabs-list" id="custom-tabs-list">
-                    <!-- 動的に追加 -->
-                </div>
-
-                <button id="add-custom-tab" class="btn btn-primary">
-                    + 新しいタブを追加
-                </button>
-            </section>
+                    <button id="add-custom-tab" class="btn btn-primary">
+                        + 新しいタブを追加
+                    </button>
+                </section>
         </main>
 
         <!-- フッター -->

@@ -1,7 +1,7 @@
 /**
  * Enhance Gmail Content Script
  * Gmail画面に注入されるメインスクリプト
- * 機能: ワンクリック配信停止、アカウント切り替え、カスタムタブ、ショートカット学習
+ * 機能: アカウント切り替え、カスタムタブ
  */
 
 (function () {
@@ -11,8 +11,6 @@
     // Storage Utility
     // ==========================================
     const DEFAULT_SETTINGS = {
-        showShortcutHints: true,
-        notifications: true,
         language: 'ja',
         customTabs: [
             { name: 'VIP', color: '#ea4335', query: 'is:important' },
@@ -43,247 +41,7 @@
         }
     }
 
-    // 学習データの取得・保存
-    async function getLearningData() {
-        try {
-            const result = await chrome.storage.local.get('learningData');
-            return result.learningData || {};
-        } catch (error) {
-            console.error('Enhance Gmail: Learning data load error', error);
-            return {};
-        }
-    }
 
-    async function saveLearningData(data) {
-        try {
-            await chrome.storage.local.set({ learningData: data });
-        } catch (error) {
-            console.error('Enhance Gmail: Learning data save error', error);
-        }
-    }
-
-    // ==========================================
-    // Shortcut Learning Feature
-    // ==========================================
-
-    // Gmailのボタンとショートカットのマッピング
-    const SHORTCUT_MAP = {
-        // aria-labelベース（日本語）
-        'アーカイブ': { key: 'E', action: 'archive' },
-        '削除': { key: '#', action: 'delete' },
-        '返信': { key: 'R', action: 'reply' },
-        '全員に返信': { key: 'A', action: 'reply-all' },
-        '転送': { key: 'F', action: 'forward' },
-        'スター': { key: 'S', action: 'star' },
-        'スターを付ける': { key: 'S', action: 'star' },
-        'スターを外す': { key: 'S', action: 'star' },
-        '既読にする': { key: 'Shift+I', action: 'mark-read' },
-        '未読にする': { key: 'Shift+U', action: 'mark-unread' },
-        'スヌーズ': { key: 'B', action: 'snooze' },
-        '移動': { key: 'V', action: 'move' },
-        'ラベル': { key: 'L', action: 'label' },
-        '迷惑メール': { key: '!', action: 'spam' },
-        '迷惑メールを報告': { key: '!', action: 'spam' },
-        // aria-labelベース（英語）
-        'Archive': { key: 'E', action: 'archive' },
-        'Delete': { key: '#', action: 'delete' },
-        'Reply': { key: 'R', action: 'reply' },
-        'Reply all': { key: 'A', action: 'reply-all' },
-        'Forward': { key: 'F', action: 'forward' },
-        'Star': { key: 'S', action: 'star' },
-        'Not starred': { key: 'S', action: 'star' },
-        'Starred': { key: 'S', action: 'star' },
-        'Mark as read': { key: 'Shift+I', action: 'mark-read' },
-        'Mark as unread': { key: 'Shift+U', action: 'mark-unread' },
-        'Snooze': { key: 'B', action: 'snooze' },
-        'Move to': { key: 'V', action: 'move' },
-        'Labels': { key: 'L', action: 'label' },
-        'Report spam': { key: '!', action: 'spam' },
-    };
-
-    // ヒント表示の日本語ラベル
-    const ACTION_LABELS = {
-        'archive': 'アーカイブ',
-        'delete': '削除',
-        'reply': '返信',
-        'reply-all': '全員に返信',
-        'forward': '転送',
-        'star': 'スター',
-        'mark-read': '既読',
-        'mark-unread': '未読',
-        'snooze': 'スヌーズ',
-        'move': '移動',
-        'label': 'ラベル',
-        'spam': '迷惑メール報告',
-    };
-
-    let learningData = {};
-    let currentHint = null;
-
-    function setupShortcutLearning() {
-        // クリックイベントを監視
-        document.addEventListener('click', handleButtonClick, true);
-
-        // キーボードショートカットの使用を監視
-        document.addEventListener('keydown', handleKeyboardShortcut, true);
-
-        console.log('Enhance Gmail: Shortcut learning initialized');
-    }
-
-    function handleButtonClick(e) {
-        if (!settings.showShortcutHints) return;
-
-        // クリックされた要素からボタンを特定
-        const button = e.target.closest('[aria-label], [data-tooltip]');
-        if (!button) return;
-
-        const label = button.getAttribute('aria-label') || button.getAttribute('data-tooltip') || '';
-        const shortcutInfo = findShortcutForLabel(label);
-
-        if (!shortcutInfo) return;
-
-        const { key, action } = shortcutInfo;
-        const data = learningData[action] || { mouseClicks: 0, keyboardUses: 0, hintCount: 0, learned: false };
-
-        // マウスクリック回数を増やす
-        data.mouseClicks++;
-        learningData[action] = data;
-        saveLearningData(learningData);
-
-        // ヒント表示条件:
-        // - まだ学習していない
-        // - ヒント表示回数が3回未満
-        // - マウスクリック回数が2回以上
-        if (!data.learned && data.hintCount < 3 && data.mouseClicks >= 2) {
-            showShortcutHint(button, key, action);
-            data.hintCount++;
-            saveLearningData(learningData);
-        }
-    }
-
-    function findShortcutForLabel(label) {
-        // 完全一致
-        if (SHORTCUT_MAP[label]) {
-            return SHORTCUT_MAP[label];
-        }
-
-        // 部分一致
-        for (const [key, value] of Object.entries(SHORTCUT_MAP)) {
-            if (label.includes(key) || key.includes(label)) {
-                return value;
-            }
-        }
-
-        return null;
-    }
-
-    function handleKeyboardShortcut(e) {
-        // 入力フィールドでは無視
-        const active = document.activeElement;
-        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
-            return;
-        }
-
-        // 押されたキーに対応するアクションを探す
-        let pressedKey = e.key.toUpperCase();
-        if (e.shiftKey && !['SHIFT'].includes(e.key.toUpperCase())) {
-            pressedKey = 'Shift+' + pressedKey;
-        }
-
-        for (const [, info] of Object.entries(SHORTCUT_MAP)) {
-            if (info.key.toUpperCase() === pressedKey) {
-                const action = info.action;
-                const data = learningData[action] || { mouseClicks: 0, keyboardUses: 0, hintCount: 0, learned: false };
-
-                data.keyboardUses++;
-
-                // 3回以上キーボード使用で学習完了
-                if (data.keyboardUses >= 3 && !data.learned) {
-                    data.learned = true;
-                    showToast(`🎉 ${ACTION_LABELS[action] || action} のショートカットを習得しました！`);
-                }
-
-                learningData[action] = data;
-                saveLearningData(learningData);
-                break;
-            }
-        }
-    }
-
-    function showShortcutHint(targetElement, shortcutKey, action) {
-        // 既存のヒントを削除
-        if (currentHint) {
-            currentHint.remove();
-            currentHint = null;
-        }
-
-        const actionLabel = ACTION_LABELS[action] || action;
-
-        const hint = document.createElement('div');
-        hint.className = 'enhance-gmail-shortcut-hint';
-        hint.innerHTML = `
-            <span class="hint-icon">💡</span>
-            <span class="hint-text">ヒント: <kbd>${shortcutKey}</kbd> キーで${actionLabel}できます</span>
-        `;
-        hint.style.cssText = `
-            position: fixed;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: 'Google Sans', Roboto, sans-serif;
-            z-index: 999999;
-            opacity: 0;
-            transform: translateY(-8px);
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            pointer-events: none;
-        `;
-
-        document.body.appendChild(hint);
-        currentHint = hint;
-
-        // 位置を計算
-        const rect = targetElement.getBoundingClientRect();
-        const hintRect = hint.getBoundingClientRect();
-
-        let top = rect.bottom + 8;
-        let left = rect.left + (rect.width / 2) - (hintRect.width / 2);
-
-        // 画面外にはみ出さないように調整
-        if (left < 8) left = 8;
-        if (left + hintRect.width > window.innerWidth - 8) {
-            left = window.innerWidth - hintRect.width - 8;
-        }
-        if (top + hintRect.height > window.innerHeight - 8) {
-            top = rect.top - hintRect.height - 8;
-        }
-
-        hint.style.top = `${top}px`;
-        hint.style.left = `${left}px`;
-
-        // アニメーション
-        requestAnimationFrame(() => {
-            hint.style.opacity = '1';
-            hint.style.transform = 'translateY(0)';
-        });
-
-        // 3秒後に自動で消える
-        setTimeout(() => {
-            if (currentHint === hint) {
-                hint.style.opacity = '0';
-                hint.style.transform = 'translateY(-8px)';
-                setTimeout(() => {
-                    if (hint.parentNode) hint.remove();
-                    if (currentHint === hint) currentHint = null;
-                }, 200);
-            }
-        }, 3000);
-    }
 
     // ==========================================
     // UI Functions
@@ -553,6 +311,8 @@
                     return `from:${value}`;
                 case 'subject':
                     return `subject:${value}`;
+                case 'snippet':
+                    return `"${value}"`;
                 case 'domain':
                     return `from:@${value}`;
                 case 'hasAttachment':
@@ -692,6 +452,7 @@
                                         <option value="from">送信者メール</option>
                                         <option value="fromName">送信者名</option>
                                         <option value="subject">件名</option>
+                                        <option value="snippet">本文</option>
                                         <option value="domain">送信元ドメイン</option>
                                         <option value="hasAttachment">添付ファイル</option>
                                         <option value="isUnread">未読</option>
@@ -742,7 +503,7 @@
             const rulesListEl = modal.querySelector('.rules-list');
 
             const FIELD_LABELS_EDIT = {
-                from: '送信者メール', fromName: '送信者名', subject: '件名',
+                from: '送信者メール', fromName: '送信者名', subject: '件名', snippet: '本文',
                 domain: '送信元ドメイン', hasAttachment: '添付ファイル',
                 isUnread: '未読', isStarred: 'スター付き',
             };
@@ -754,6 +515,7 @@
                 from: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
                 fromName: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
                 subject: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
+                snippet: ['contains'],
                 domain: ['contains', 'equals', 'endsWith'],
                 hasAttachment: ['isTrue', 'isFalse'],
                 isUnread: ['isTrue', 'isFalse'],
@@ -1006,6 +768,7 @@
                                         <option value="from">送信者メール</option>
                                         <option value="fromName">送信者名</option>
                                         <option value="subject">件名</option>
+                                        <option value="snippet">本文</option>
                                         <option value="domain">送信元ドメイン</option>
                                         <option value="hasAttachment">添付ファイル</option>
                                         <option value="isUnread">未読</option>
@@ -1107,6 +870,7 @@
                 from: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
                 fromName: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
                 subject: ['contains', 'equals', 'startsWith', 'endsWith', 'regex'],
+                snippet: ['contains'],
                 domain: ['contains', 'equals', 'endsWith'],
                 hasAttachment: ['isTrue', 'isFalse'],
                 isUnread: ['isTrue', 'isFalse'],
@@ -1127,6 +891,7 @@
                 from: '送信者メール',
                 fromName: '送信者名',
                 subject: '件名',
+                snippet: '本文',
                 domain: '送信元ドメイン',
                 hasAttachment: '添付ファイル',
                 isUnread: '未読',
@@ -1397,13 +1162,10 @@
         console.log('Enhance Gmail: Initializing...');
 
         settings = await getSettings();
-        learningData = await getLearningData();
         console.log('Enhance Gmail: Settings loaded', settings);
-        console.log('Enhance Gmail: Learning data loaded', learningData);
 
         setupShortcutListeners();
         setupCustomTabs();
-        setupShortcutLearning();
 
         // ルールインジケータをセットアップ
         setTimeout(() => {

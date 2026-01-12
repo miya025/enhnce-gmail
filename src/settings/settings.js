@@ -8,8 +8,6 @@ async function loadSettings() {
     const settings = result.settings || {};
 
     document.getElementById('language').value = settings.language || 'ja';
-    document.getElementById('notifications').checked = settings.notifications !== false;
-    document.getElementById('shortcut-hints').checked = settings.showShortcutHints !== false;
 
     // カスタムタブを読み込み
     loadCustomTabs(settings.customTabs || []);
@@ -21,8 +19,6 @@ async function saveSettings() {
 
     const settings = {
         language: document.getElementById('language').value,
-        notifications: document.getElementById('notifications').checked,
-        showShortcutHints: document.getElementById('shortcut-hints').checked,
         customTabs
     };
 
@@ -109,24 +105,14 @@ function getCustomTabsFromUI() {
     return tabs;
 }
 
-// 学習データをリセット
-async function resetLearningData() {
-    if (confirm('ショートカット学習の進捗をリセットしますか？')) {
-        await chrome.storage.local.set({ learningData: {} });
-        showSaveNotification();
-    }
-}
-
 // イベントリスナー設定
-document.querySelectorAll('select, input[type="checkbox"]').forEach(el => {
+document.querySelectorAll('select').forEach(el => {
     el.addEventListener('change', saveSettings);
 });
 
 document.getElementById('add-custom-tab').addEventListener('click', () => {
     addCustomTabUI();
 });
-
-document.getElementById('reset-learning').addEventListener('click', resetLearningData);
 
 // 初期化
 loadSettings();
