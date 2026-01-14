@@ -8,19 +8,18 @@ const DEFAULT_SETTINGS = {
   // 送信取り消し設定
   sendDelay: 60, // 秒
   showSendProgress: true,
-  
+
   // スヌーズ設定
   defaultSnoozeTime: '09:00',
-  
+
   // UI簡素化モード
   uiMode: 'normal', // 'normal', 'simple', 'zen'
-  
+
   // ショートカット学習
   showShortcutHints: true,
-  
-  // 通知
-  notifications: true,
-  
+
+
+
   // 言語
   language: 'ja'
 };
@@ -130,7 +129,7 @@ export async function updateLearningData(action, type) {
       learned: false
     };
   }
-  
+
   if (type === 'mouse') {
     data[action].mouseClicks++;
   } else if (type === 'keyboard') {
@@ -139,7 +138,7 @@ export async function updateLearningData(action, type) {
       data[action].learned = true;
     }
   }
-  
+
   await saveLocalData('learningData', data);
   return data[action];
 }

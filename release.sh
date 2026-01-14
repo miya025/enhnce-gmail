@@ -2,7 +2,9 @@
 
 # Configuration
 EXTENSION_NAME="enhance-gmail"
-ZIP_NAME="${EXTENSION_NAME}.zip"
+# Extract version from manifest.json
+VERSION=$(grep '"version":' manifest.json | cut -d '"' -f 4)
+ZIP_NAME="${EXTENSION_NAME}-v${VERSION}.zip"
 
 # Create a clean zip file
 echo "Creating ${ZIP_NAME}..."

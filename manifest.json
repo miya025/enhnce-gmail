@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "__MSG_extensionDescription__",
   "default_locale": "ja",
   "icons": {
@@ -11,11 +11,7 @@
   },
   "permissions": [
     "storage",
-    "alarms",
-    "notifications"
-  ],
-  "host_permissions": [
-    "https://mail.google.com/*"
+    "alarms"
   ],
   "background": {
     "service_worker": "src/background.js",
